@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+{% block title %}All Customers{% endblock %}
+{% block content %}
+<h1>Customers</h1>
+
+<div class="row">
+{% for cust in customer %}
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h3 class="card-title">Customer {{cust.id}} </h3>
+        <p class="card-text">First name : {{cust.first_name}}</p>
+        <p class="card-text">Last name : {{cust.last_name}}</p>
+        <p class="card-text">Phone Number : {{cust.phone_number}}</p>
+        <a href="{%url 'single_customer' cust.id %}" class="btn btn-primary">More about this customer</a>
+      </div>
+    </div>
+{% endfor %}
+</div>
+
+
+{% endblock %}

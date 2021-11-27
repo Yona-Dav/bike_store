@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+{% block title %}{{customer.id}}{% endblock %}
+{% block content %}
+
+{% if customer %}
+
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h3 class="card-title">Customer number {{customer.id}} </h3>
+        <p class="card-text">First name : {{customer.first_name}}</p>
+        <p class="card-text">Last name : {{customer.last_name}}</p>
+        <p class="card-text">Email : {{customer.email}}</p>
+        <p class="card-text">Phone Number : {{customer.phone_number}}</p>
+        <p class="card-text">Address : {{customer.address}}, {{customer.city}}, {{customer.country}} </p>
+
+
+    </div>
+</div>
+
+{% endif%}
+<div>
+    {% for rent in customer.rental_set.all %}
+    <a href="{%url 'single_rental' rent.id %}" class="btn btn-success">Rental number {{rent.id}}</a>
+    {%endfor%}
+</div>
+<br>
+<a href="{%url 'all_customers' %}" class="btn btn-primary">All the customers</a>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+{% block title %}{{vehicle.id}}{% endblock %}
+{% block content %}
+
+{% if vehicle %}
+
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h3 class="card-title">Vehicle {{vehicle.id}} </h3>
+        <p class="card-text">Type : {{vehicle.vehicle_type.name}}</p>
+        <p class="card-text">Size : {{vehicle.size.name}}</p>
+        <p class="card-text">Cost : {{vehicle.real_cost}}</p>
+        {%for rental in vehicle.rental_set.all%}
+        {%if not rental.return_date%}
+        <p class="card-text">Curently rented by customer {{rental.customer.id}}</p>
+        {%endif%}
+        {%endfor%}
+
+    </div>
+</div>
+
+{% endif%}
+
+<br>
+<a href="{%url 'all_vehicles' %}" class="btn btn-primary">All the vehicles</a>
+
+{% endblock %}

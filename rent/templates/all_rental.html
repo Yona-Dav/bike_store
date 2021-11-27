@@ -1,0 +1,38 @@
+{% extends 'base.html'%}
+{% block title %}All Rentals{% endblock %}
+{% block content %}
+<h1>Rentals</h1>
+<h2>Unreturned Rentals</h2>
+<div class="row">
+{% for rent_u in unreturned %}
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Vehicle {{rent_u.vehicle.id}}</h5>
+        <p class="card-text">Type : {{rent_u.vehicle.vehicle_type}} - Size:{{rent_u.vehicle.size}}</p>
+        <p class="card-text">Rental date : {{rent_u.rental_date}}</p>
+        <p class="card-text">Customer : {{rent_u.customer.first_name}} {{rent_u.customer.last_name}}</p>
+        <a href="{%url 'single_rental' rent_u.id %}" class="btn btn-primary">More about it</a>
+      </div>
+    </div>
+{% endfor %}
+</div>
+
+<h2>Returned Rentals</h2>
+<div class="row">
+{% for rent_r in returned %}
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Vehicle number {{rent_r.vehicle.id}}</h5>
+        <p class="card-text">Type : {{rent_r.vehicle.vehicle_type}} - Size:{{rent_r.vehicle.size}}</p>
+        <p class="card-text">Rental date : {{rent_r.rental_date}}</p>
+        <p class="card-text">Return date : {{rent_r.return_date}}</p>
+        <p class="card-text">Customer : {{rent_r.customer.first_name}} {{rent_r.customer.last_name}}</p>
+        <a href="{%url 'single_rental' rent_r.id %}" class="btn btn-primary">More about it</a>
+
+      </div>
+    </div>
+{% endfor %}
+</div>
+
+
+{% endblock %}

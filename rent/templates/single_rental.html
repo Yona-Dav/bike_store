@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+{% block title %}{{rent.id}}{% endblock %}
+{% block content %}
+
+{% if rent %}
+
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h3 class="card-title">Rental number {{rent.id}} </h3>
+        <p class="card-text">Rental on : {{rent.rental_date}}</p>
+        {%if rent.return_date%}
+            <p class="card-text">Returned on : {{rent.return_date}}</p>
+        {%else%}
+            <p class="card-text">Returned on : Not yet returned</p>
+        {%endif%}
+
+        <h5 class="card-title">Customer: {{rent.customer.first_name}} {{rent.customer.last_name}}</h5>
+        <p class="card-text">Email : {{rent.customer.email}}</p>
+        <p class="card-text">Phone Number : {{rent.customer.phone_number}}</p>
+        <p class="card-text">Address : {{rent.customer.address}}, {{rent.customer.city}}, {{rent.customer.country}} </p>
+
+        <h5 class="card-title">Vehicle {{rent.vehicle.id}}</h5>
+        <p class="card-text">Type : {{rent.vehicle.vehicle_type}}</p>
+        <p class="card-text">Size : {{rent.vehicle.size}}</p>
+
+    </div>
+</div>
+<a href="{%url 'all_rental' %}" class="btn btn-primary">All the rentals</a>
+
+
+
+{% endif%}
+{% endblock %}

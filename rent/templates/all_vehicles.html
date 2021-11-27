@@ -1,0 +1,32 @@
+{% extends 'base.html'%}
+{% block title %}All Vehicles{% endblock %}
+{% block content %}
+<h1>Vehicles</h1>
+
+<div class="row">
+    {% for ty, veh in type.items %}
+    <br>
+    <h3><b>{{ty}}S</b></h3>
+    {% for ve in veh %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h3 class="card-title">Vehicle {{ve.id}} </h3>
+            {%for rental in ve.rental_set.all%}
+            {%if not rental.return_date%}
+            <i class=" card-img-top fas fa-times-circle" style="color:red"></i>
+            {%else%}
+            <i class=" card-img-top fas fa-check-circle"style="color:green"></i>
+            {%endif%}
+            {%endfor%}
+            <p class="card-text">Type : {{ve.vehicle_type.name}}</p>
+            <p class="card-text">Size : {{ve.size.name}}</p>
+            <p class="card-text">Cost : {{ve.real_cost}}</p>
+            <a href="{%url 'single_vehicle' ve.id %}" class="btn btn-primary">More about this vehicle</a>
+        </div>
+    </div>
+    {% endfor %}
+    {% endfor %}
+</div>
+
+
+{% endblock %}
