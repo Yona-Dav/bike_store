@@ -40,6 +40,3 @@ class RentalRate(models.Model):
     type = models.ForeignKey(VehicleType, on_delete=models.CASCADE)
     vehicle_size = models.ForeignKey(VehicleSize, on_delete=models.CASCADE)
 
-
-
-

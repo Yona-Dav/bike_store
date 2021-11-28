@@ -4,9 +4,23 @@
 <form method="post">
     {% csrf_token %}
 
-    {{ form.as_p }}
+    <div class="form-group">
+        <label for="customer_id">Customer</label>
+        <select class="form-control" id="customer_id" name="customer_id">
+            {% for customer in customers %}
+            <option value="{{customer.id}}">{{customer.first_name}} {{customer.last_name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="vehicle_id">Vehicle ID</label>
+        <select class="form-control" id="vehicle_id" name="vehicle_id">
 
-
+            {% for vehicle in unrented_list %}
+            <option value="{{vehicle.id}}">{{vehicle.id}}</option>
+            {% endfor %}
+        </select>
+    </div>
     <button>submit</button>
 </form>
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_list_or_404, redirect
 from .models import *
 from .forms import RentalForm, CustomerForm, VehicleForm
+from datetime import date
 
 # Create your views here.
 
@@ -14,15 +15,22 @@ def single_rental(request, rental_id):
     rental = Rental.objects.get(id=rental_id)
     return render(request, 'single_rental.html', {'rent': rental})
 
+
 def add_rental(request):
+    customers = Customer.objects.all()
+    rented_list = Rental.objects.filter(return_date__isnull=True).values('vehicle_id')
+    unrented_list = Vehicle.objects.exclude(pk__in=rented_list)
+
     if request.method == 'POST':
-        form = RentalForm(request.POST)
-        if form.is_valid():
-            rent = Rental.objects.create(**form.cleaned_data)
-            return redirect('all_rental')
-    if request.method == 'GET':
-        form = RentalForm()
-    return render(request, 'add_rental.html', {'form':form})
+        cust_id = request.POST.get('customer_id')
+        vehicle_id = request.POST.get('vehicle_id')
+        vehicle = Vehicle.objects.filter(id=vehicle_id).first()
+        customer = Customer.objects.filter(id=cust_id).first()
+
+        rental = Rental(rental_date=date.today(), customer=customer, vehicle=vehicle)
+        rental.save()
+        return redirect('all_rental')
+    return render(request, 'add_rental.html', {'customers': customers, 'unrented_list': unrented_list})
 
 def single_customer(request, customer_id):
     cust = Customer.objects.get(id=customer_id)
